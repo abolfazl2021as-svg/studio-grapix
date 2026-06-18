@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Studio.Grapix | استودیو گرافیک</title>
+<meta name="description" content="استودیو گرافیک — پکیج‌های طلایی پروژه‌های لایه‌باز، راه‌اندازی و رشد کانال، طراحی گرافیک، ادیت ویدیو و ریمیکس آهنگ.">
+<meta name="theme-color" content="#0a0d1a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --navy-950:#0a0d1a;
+  --navy-900:#10142a;
+  --navy-850:#141934;
+  --navy-800:#1a2040;
+  --navy-700:#232b50;
+  --rose:#c98a5e;
+  --rose-light:#e8b88f;
+  --rose-deep:#9c5f3c;
+  --silver:#e3e5ec;
+  --silver-dim:#aab0c4;
+  --text:#f1f2f7;
+  --text-muted:#9aa0ba;
+  --glass-bg:rgba(255,255,255,0.045);
+  --glass-bg-strong:rgba(255,255,255,0.085);
+  --glass-border:rgba(227,229,236,0.14);
+  --glass-border-hover:rgba(201,138,94,0.55);
+  --radius-lg:28px;
+  --radius-md:18px;
+  --radius-sm:12px;
+  --ease:cubic-bezier(.16,.84,.44,1);
+}
+
+/* ============ RESET ============ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Vazirmatn',sans-serif;
+  background:var(--navy-950);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.8;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{font-family:inherit;background:none;border:none;color:inherit;cursor:pointer}
+.lat{font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.5px}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+}
+
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--rose-light);
+  outline-offset:3px;
+  border-radius:8px;
+}
+
+/* ============ BACKGROUND AURORA ============ */
+.bg-aurora{
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:radial-gradient(ellipse 120% 80% at 50% -10%, var(--navy-800), var(--navy-950) 62%);
+}
+.bg-aurora span{position:absolute;border-radius:50%;filter:blur(120px)}
+.bg-aurora span:nth-child(1){width:560px;height:560px;top:-160px;inset-inline-end:-120px;background:var(--rose);opacity:.30}
+.bg-aurora span:nth-child(2){width:520px;height:520px;bottom:-200px;inset-inline-start:-140px;background:var(--silver);opacity:.10}
+.bg-aurora span:nth-child(3){width:420px;height:420px;top:42%;inset-inline-start:46%;background:var(--rose-deep);opacity:.20}
+.bg-grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative;z-index:1}
+.container{max-width:1180px;margin-inline:auto;padding-inline:clamp(18px,5vw,56px)}
+
+/* ============ GLASS ============ */
+.glass{
+  background:linear-gradient(135deg,var(--glass-bg-strong),var(--glass-bg));
+  backdrop-filter:blur(22px) saturate(150%);
+  -webkit-backdrop-filter:blur(22px) saturate(150%);
+  border:1px solid var(--glass-border);
+  box-shadow:0 8px 32px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:14px 30px;border-radius:999px;font-weight:600;font-size:.95rem;
+  border:1px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .35s, color .35s;
+}
+.btn svg{width:18px;height:18px}
+.btn-primary{
+  background:linear-gradient(135deg,var(--rose-light),var(--rose) 55%,var(--rose-deep));
+  color:#1c1208;
+  box-shadow:0 12px 30px -10px rgba(201,138,94,.6);
+}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 38px -10px rgba(201,138,94,.7)}
+.btn-ghost{background:var(--glass-bg);border-color:var(--glass-border);color:var(--text);backdrop-filter:blur(14px)}
+.btn-ghost:hover{border-color:var(--glass-border-hover);color:var(--rose-light);transform:translateY(-3px)}
+.btn-sm{padding:10px 20px;font-size:.85rem}
+.btn-block{width:100%;justify-content:center}
+
+/* ============ NAV ============ */
+.nav{position:fixed;top:0;inset-inline:0;z-index:60;transition:all .4s var(--ease)}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px clamp(18px,5vw,40px);
+  border-radius:0 0 26px 26px;
+  transition:padding .4s var(--ease), background .4s;
+}
+.nav.scrolled .nav-inner{padding-block:9px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:38px;height:38px;flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text b{font-size:1rem;font-weight:800;letter-spacing:.3px}
+.brand-text span{font-size:.68rem;color:var(--text-muted);font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:1px}
+
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{
+  position:relative;padding:9px 16px;font-size:.92rem;font-weight:500;color:var(--text-muted);
+  border-radius:999px;transition:color .3s
+}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-links a::after{
+  content:'';position:absolute;bottom:3px;inset-inline:16px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,var(--rose-light),var(--rose));
+  transform:scaleX(0);transform-origin:center;transition:transform .35s var(--ease)
+}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+
+.nav-cta{display:flex;align-items:center;gap:10px}
+.nav-toggle{display:none;flex-direction:column;gap:5px;width:38px;height:38px;align-items:center;justify-content:center;border-radius:12px}
+.nav-toggle span{width:20px;height:2px;background:var(--text);border-radius:2px;transition:transform .35s var(--ease),opacity .3s}
+.nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  max-height:0;overflow:hidden;margin:0 16px;border-radius:22px;
+  transition:max-height .45s var(--ease);
+}
+.mobile-menu.open{max-height:420px;margin-top:8px}
+.mobile-menu ul{display:flex;flex-direction:column;padding:10px}
+.mobile-menu a{padding:14px 18px;font-size:.98rem;border-radius:14px;color:var(--text-muted)}
+.mobile-menu a:hover{background:var(--glass-bg-strong);color:var(--text)}
+
+/* ============ HERO ============ */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:140px 20px 80px;gap:26px;position:relative;
+}
+.hero-bismillah{font-size:.8rem;letter-spacing:3px;color:var(--rose-light);font-weight:600;text-transform:none;opacity:.85}
+.hero-mark{width:clamp(110px,14vw,150px);height:auto;margin-bottom:6px;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:999px;
+  font-size:.78rem;letter-spacing:1.5px;color:var(--silver-dim);
+}
+.hero-title{
+  font-size:clamp(2.1rem,5.2vw,3.6rem);font-weight:800;line-height:1.35;letter-spacing:-.5px;max-width:880px;
+}
+.grad-text{
+  background:linear-gradient(90deg,var(--rose-light),var(--silver) 55%,var(--rose));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero-sub{max-width:600px;color:var(--text-muted);font-size:1.05rem;line-height:2}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.hero-chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.chip{
+  display:flex;align-items:center;gap:6px;padding:8px 16px;border-radius:999px;font-size:.8rem;color:var(--text-muted)
+}
+.chip svg{width:14px;height:14px;color:var(--rose-light);flex-shrink:0}
+
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-muted)}
+.scroll-cue .dot-track{width:22px;height:36px;border:2px solid var(--glass-border);border-radius:14px;display:flex;justify-content:center;padding-top:6px}
+.scroll-cue .dot{width:4px;height:8px;border-radius:2px;background:var(--rose-light);animation:scrolldown 1.8s infinite}
+@keyframes scrolldown{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(12px)}}
+
+/* ============ SECTION HEAD ============ */
+.section{padding:120px 0}
+.section-head{max-width:680px;margin-inline:auto;text-align:center;margin-bottom:56px}
+.section-eyebrow{font-size:.78rem;letter-spacing:2.5px;color:var(--rose-light);font-weight:700;margin-bottom:14px}
+.section-title{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;margin-bottom:14px;letter-spacing:-.3px}
+.section-sub{color:var(--text-muted);font-size:1rem}
+
+/* ============ REVEAL ============ */
+[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease), transform .8s var(--ease)}
+[data-reveal].is-visible{opacity:1;transform:translateY(0)}
+
+/* ============ SERVICES ============ */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.service-card{
+  position:relative;padding:34px 30px;border-radius:var(--radius-lg);cursor:pointer;overflow:hidden;
+  transition:transform .5s var(--ease), border-color .4s, box-shadow .5s var(--ease);
+}
+.service-card:hover,.service-card:focus-visible{
+  transform:translateY(-8px);border-color:var(--glass-border-hover);
+  box-shadow:0 22px 50px -16px rgba(201,138,94,.35), inset 0 1px 0 rgba(255,255,255,.08);
+}
+.service-card::before{
+  content:'';position:absolute;width:160px;height:160px;border-radius:50%;
+  top:-70px;inset-inline-end:-70px;background:radial-gradient(circle,rgba(201,138,94,.22),transparent 70%);
+  pointer-events:none;
+}
+.service-badge{
+  position:absolute;top:18px;inset-inline-end:-34px;transform:rotate(40deg);
+  background:linear-gradient(135deg,var(--rose-light),var(--rose));
+  color:#1c1208;font-size:.68rem;font-weight:800;padding:5px 42px;letter-spacing:.5px;
+}
+.service-icon{
+  width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(201,138,94,.22),rgba(227,229,236,.06));
+  border:1px solid var(--glass-border);margin-bottom:20px;
+}
+.service-icon svg{width:24px;height:24px;color:var(--rose-light)}
+.service-card h3{font-size:1.12rem;font-weight:700;margin-bottom:10px}
+.service-card p{color:var(--text-muted);font-size:.9rem;line-height:1.8;margin-bottom:20px}
+.service-more{display:inline-flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;color:var(--rose-light)}
+.service-more svg{width:15px;height:15px;transition:transform .35s var(--ease)}
+.service-card:hover .service-more svg{transform:translateX(-4px)}
+
+/* ============ MODAL ============ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:rgba(7,9,18,.66);backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .4s var(--ease);
+}
+.modal-overlay.open{opacity:1;pointer-events:auto}
+.modal{
+  width:100%;max-width:600px;max-height:86vh;overflow-y:auto;border-radius:var(--radius-lg);
+  padding:clamp(26px,4vw,42px);position:relative;
+  transform:scale(.93) translateY(14px);transition:transform .45s var(--ease);
+}
+.modal-overlay.open .modal{transform:scale(1) translateY(0)}
+.modal-close{
+  position:absolute;top:18px;inset-inline-start:18px;width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--glass-bg-strong);
+  border:1px solid var(--glass-border);transition:transform .3s,border-color .3s
+}
+.modal-close:hover{transform:rotate(90deg);border-color:var(--glass-border-hover)}
+.modal-close svg{width:16px;height:16px}
+.modal-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-inline-end:34px}
+.modal-header .service-icon{margin-bottom:0;flex-shrink:0}
+.modal-header h3{font-size:1.3rem;font-weight:800;margin-bottom:4px}
+.modal-header p{color:var(--text-muted);font-size:.88rem}
+.modal-list{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+.modal-list li{display:flex;align-items:flex-start;gap:12px;font-size:.94rem;color:var(--text)}
+.modal-list svg{width:19px;height:19px;color:var(--rose-light);flex-shrink:0;margin-top:2px}
+.modal-mood-title{font-size:.85rem;color:var(--text-muted);margin-bottom:12px;font-weight:600}
+.mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:30px}
+.mood-swatch{
+  border-radius:14px;height:74px;display:flex;align-items:flex-end;padding:10px;font-size:.72rem;font-weight:700;
+  border:1px solid var(--glass-border);
+}
+.modal-footer{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ============ SHOWCASE ============ */
+.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.showcase-card{border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column}
+.mockup-frame{
+  height:230px;padding:16px;display:flex;flex-direction:column;gap:10px;
+  background:linear-gradient(160deg,var(--navy-800),var(--navy-900));
+  border-bottom:1px solid var(--glass-border);
+}
+.mockup-dots{display:flex;gap:6px}
+.mockup-dots span{width:8px;height:8px;border-radius:50%;background:var(--glass-border)}
+.mockup-body{flex:1;display:flex;gap:10px}
+.mockup-shop .mockup-body{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mockup-shop .mockup-item{
+  border-radius:8px;background:linear-gradient(135deg,rgba(201,138,94,.35),rgba(227,229,236,.08));
+  border:1px solid var(--glass-border);display:flex;align-items:flex-end;padding:6px;
+}
+.mockup-shop .mockup-item span{font-size:.6rem;font-weight:700;background:var(--rose);color:#1c1208;padding:2px 6px;border-radius:6px}
+.mockup-corp .mockup-body{flex-direction:column;gap:8px}
+.mockup-corp .bar{border-radius:8px;background:rgba(227,229,236,.08);border:1px solid var(--glass-border)}
+.mockup-corp .bar.b1{height:40%;background:linear-gradient(120deg,rgba(201,138,94,.3),rgba(227,229,236,.06))}
+.mockup-corp .bar.b2{height:22%}
+.mockup-corp .bar.b3{height:28%;display:flex;gap:8px;padding:8px;background:transparent;border:none}
+.mockup-corp .bar.b3 i{flex:1;border-radius:6px;background:rgba(227,229,236,.07);border:1px solid var(--glass-border)}
+.showcase-content{padding:28px 26px 30px}
+.showcase-content h3{font-size:1.18rem;font-weight:800;margin-bottom:10px}
+.showcase-content>p{color:var(--text-muted);font-size:.9rem;margin-bottom:18px}
+.showcase-feats{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+.showcase-feats li{display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--text)}
+.showcase-feats svg{width:16px;height:16px;color:var(--rose-light);flex-shrink:0}
+
+/* ============ ABOUT ============ */
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:34px;align-items:stretch}
+.about-text{padding:38px 34px;border-radius:var(--radius-lg);display:flex;flex-direction:column;justify-content:center}
+.about-text h3{font-size:1.4rem;font-weight:800;margin-bottom:16px}
+.about-text p{color:var(--text-muted);font-size:.96rem;margin-bottom:14px}
+.about-text p:last-of-type{margin-bottom:0}
+.about-text .lat{color:var(--rose-light);font-size:1.1rem}
+
+.social-panel{padding:18px;border-radius:var(--radius-lg);display:flex;flex-direction:column;gap:10px}
+.social-row{
+  display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;
+  border:1px solid transparent;transition:border-color .3s,background .3s,transform .3s
+}
+.social-row:hover{border-color:var(--glass-border-hover);background:var(--glass-bg-strong);transform:translateX(-4px)}
+.social-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--glass-bg-strong);border:1px solid var(--glass-border);flex-shrink:0}
+.social-icon svg{width:20px;height:20px;color:var(--rose-light)}
+.social-meta{flex:1;min-width:0}
+.social-meta b{display:block;font-size:.92rem;font-weight:700}
+.social-meta span{display:block;font-size:.8rem;color:var(--text-muted);direction:ltr;text-align:right}
+.social-row>svg.arrow{width:15px;height:15px;color:var(--text-muted);flex-shrink:0}
+
+/* ============ FOOTER ============ */
+footer{padding:50px 0 36px;border-top:1px solid var(--glass-border)}
+.footer-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px}
+.footer-links{display:flex;gap:22px;flex-wrap:wrap}
+.footer-links a{font-size:.86rem;color:var(--text-muted);transition:color .3s}
+.footer-links a:hover{color:var(--rose-light)}
+.footer-copy{color:var(--text-muted);font-size:.78rem}
+
+/* ============ FLOATING TG ============ */
+.float-tg{
+  position:fixed;bottom:24px;left:24px;z-index:80;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--rose-light),var(--rose));
+  box-shadow:0 12px 28px -8px rgba(201,138,94,.65);
+  transition:transform .4s var(--ease);
+}
+.float-tg:hover{transform:scale(1.08) translateY(-2px)}
+.float-tg svg{width:24px;height:24px;color:#1c1208}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:920px){
+  .about-grid,.showcase-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+}
+@media (max-width:560px){
+  .hero{padding-top:120px}
+  .section{padding:84px 0}
+  .mood-grid{grid-template-columns:repeat(2,1fr)}
+  .float-tg{width:50px;height:50px;bottom:16px;left:16px}
+  .nav-cta .btn-ghost{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-aurora"><span></span><span></span><span></span></div>
+<div class="bg-grain"></div>
+
+<div class="wrap">
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <div class="nav-inner glass">
+      <a href="#top" class="brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none">
+          <defs>
+            <linearGradient id="bm1" x1="0" y1="0" x2="64" y2="64">
+              <stop offset="0" stop-color="#e8b88f"/><stop offset="1" stop-color="#9c5f3c"/>
+            </linearGradient>
+          </defs>
+          <path d="M20 32a12 12 0 1 1 12 12" stroke="url(#bm1)" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 32a12 12 0 1 1-12-12" stroke="#e3e5ec" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text"><b>استودیو گرافیک</b><span class="lat">Studio.Grapix</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#top" class="active">خانه</a>
+        <a href="#services">خدمات</a>
+        <a href="#showcase">نمونه سایت‌ها</a>
+        <a href="#about">درباره ما</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">شروع همکاری</a>
+        <button class="nav-toggle" id="navToggle" aria-label="باز کردن منو" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="mobile-menu glass" id="mobileMenu">
+      <ul>
+        <li><a href="#top">خانه</a></li>
+        <li><a href="#services">خدمات</a></li>
+        <li><a href="#showcase">نمونه سایت‌ها</a></li>
+        <li><a href="#about">درباره ما</a></li>
+        <li><a href="https://t.me/studio_grapix" target="_blank" rel="noopener">شروع همکاری ↗</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <p class="hero-bismillah">به نام خدا</p>
+    <svg class="hero-mark" viewBox="0 0 200 200" fill="none">
+      <defs>
+        <linearGradient id="hm1" x1="0" y1="0" x2="200" y2="200">
+          <stop offset="0" stop-color="#e8b88f"/><stop offset="1" stop-color="#9c5f3c"/>
+        </linearGradient>
+      </defs>
+      <path d="M60 100a40 40 0 1 1 40 40" stroke="url(#hm1)" stroke-width="14" stroke-linecap="round"/>
+      <path d="M140 100a40 40 0 1 1-40-40" stroke="#e3e5ec" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="6" fill="#e8b88f"/>
+    </svg>
+    <span class="eyebrow glass">STUDIO.GRAPIX — استودیو گرافیک</span>
+    <h1 class="hero-title" data-reveal>برای ساختن، رشد و درخشیدن برندت،<br><span class="grad-text">همه‌چی این‌جاست</span></h1>
+    <p class="hero-sub" data-reveal>از پکیج‌های طلایی پروژه‌های لایه‌باز و دوره‌های آموزشی گرفته تا راه‌اندازی و رشد کانال، طراحی گرافیک، ادیت ویدیو و ریمیکس آهنگ — همه‌چی زیر یک سقف، با کیفیت بالا.</p>
+    <div class="hero-actions" data-reveal>
+      <a href="#services" class="btn btn-primary">مشاهده خدمات</a>
+      <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="btn btn-ghost">ارتباط با ما</a>
+    </div>
+    <div class="hero-chips" data-reveal>
+      <span class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>تحویل سریع</span>
+      <span class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>کیفیت بالا</span>
+      <span class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>پشتیبانی فعال</span>
+      <span class="chip glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>قیمت منصفانه</span>
+    </div>
+    <a href="#services" class="scroll-cue" aria-hidden="true">
+      <span class="dot-track"><span class="dot"></span></span>
+    </a>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="section-eyebrow">۶ پنل اصلی خدمات</p>
+        <h2 class="section-title">هرچی لازم داری، توی یه پنل</h2>
+        <p class="section-sub">روی هرکدوم از پنل‌ها بزن تا جزئیات کامل، نمونه‌ها و فرم درخواست همون سرویس باز بشه.</p>
+      </div>
+      <div class="services-grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ SHOWCASE ============ -->
+  <section class="section" id="showcase">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="section-eyebrow">مدل‌های خفن</p>
+        <h2 class="section-title">طراحی سایت، حرفه‌ای و شیشه‌ای</h2>
+        <p class="section-sub">دو مدل اصلی که بیشترین درخواست رو داره؛ هرکدوم رو می‌تونیم دقیقاً مطابق برند تو بسازیم.</p>
+      </div>
+      <div class="showcase-grid">
+        <div class="showcase-card glass" data-reveal>
+          <div class="mockup-frame mockup-shop">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <div class="mockup-body">
+              <div class="mockup-item"><span>محصول</span></div>
+              <div class="mockup-item"><span>محصول</span></div>
+              <div class="mockup-item"><span>محصول</span></div>
+            </div>
+          </div>
+          <div class="showcase-content">
+            <h3>طراحی سایت فروشگاهی</h3>
+            <p>سایتی برای فروش واقعی؛ شیک، سریع و آماده برای موبایل.</p>
+            <ul class="showcase-feats">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>نمایش شیک محصولات و دسته‌بندی‌ها</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>سبد خرید و مسیر خرید یکپارچه</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>سرعت بالا، کاملاً واکنش‌گرا</li>
+            </ul>
+            <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="btn btn-ghost btn-sm btn-block">درخواست طراحی مشابه</a>
+          </div>
+        </div>
+        <div class="showcase-card glass" data-reveal>
+          <div class="mockup-frame mockup-corp">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <div class="mockup-body">
+              <div class="bar b1"></div>
+              <div class="bar b2"></div>
+              <div class="bar b3"><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="showcase-content">
+            <h3>طراحی سایت شرکتی</h3>
+            <p>معرفی حرفه‌ای کسب‌وکار تو، با هویت بصری اختصاصی.</p>
+            <ul class="showcase-feats">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>معرفی حرفه‌ای خدمات و تیم</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>فرم تماس و درخواست مشاوره</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>هویت بصری یکپارچه و اختصاصی</li>
+            </ul>
+            <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="btn btn-ghost btn-sm btn-block">درخواست طراحی مشابه</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="section-eyebrow">درباره ما</p>
+        <h2 class="section-title">استودیو گرافیک — Studio.Grapix</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text glass" data-reveal>
+          <h3>یه تیم خلاق، کنار تو</h3>
+          <p>استودیو گرافیک <span class="lat">(Studio.Grapix)</span> یه تیم خلاقه که کنار ادیتورها، موشن‌کارها، طراح‌ها و صاحب‌های کانال می‌مونه؛ از ساخت اولین پروژه تا رشد و درخشیدنِ برند.</p>
+          <p>این‌جا هر چی برای ساختن یه کانال یا برند حرفه‌ای لازم داری رو، با کیفیت بالا و قیمت منصفانه پیدا می‌کنی.</p>
+        </div>
+        <div class="social-panel glass" data-reveal>
+          <a href="https://instagram.com/studio.grapix" target="_blank" rel="noopener" class="social-row">
+            <span class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg></span>
+            <span class="social-meta"><b>اینستاگرام</b><span>studio.grapix</span></span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l5-5-5-5"/></svg>
+          </a>
+          <a href="https://youtube.com/@studio.grapix" target="_blank" rel="noopener" class="social-row">
+            <span class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></span>
+            <span class="social-meta"><b>یوتیوب</b><span>studio.grapix</span></span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l5-5-5-5"/></svg>
+          </a>
+          <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="social-row">
+            <span class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 4L3 11l6 2.4M21 4l-3.5 16-7.5-6.6M21 4l-11 9.8"/></svg></span>
+            <span class="social-meta"><b>تلگرام</b><span>studio_grapix</span></span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l5-5-5-5"/></svg>
+          </a>
+          <a href="https://rubika.ir/studio_grapix" target="_blank" rel="noopener" class="social-row">
+            <span class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z" fill="currentColor" stroke="none"/></svg></span>
+            <span class="social-meta"><b>روبیکا</b><span>studio_grapix</span></span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l5-5-5-5"/></svg>
+          </a>
+          <a href="https://t.me/grapix_com" target="_blank" rel="noopener" class="social-row">
+            <span class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1.2-3.6 4-5.4 7-5.4s5.8 1.8 7 5.4"/></svg></span>
+            <span class="social-meta"><b>آیدی پشتیبانی</b><span>grapix_com</span></span>
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l5-5-5-5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="container footer-inner">
+      <a href="#top" class="brand">
+        <svg class="brand-mark" viewBox="0 0 64 64" fill="none">
+          <path d="M20 32a12 12 0 1 1 12 12" stroke="#e8b88f" stroke-width="5" stroke-linecap="round"/>
+          <path d="M44 32a12 12 0 1 1-12-12" stroke="#e3e5ec" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text"><b>استودیو گرافیک</b><span class="lat">Studio.Grapix</span></span>
+      </a>
+      <div class="footer-links">
+        <a href="#services">خدمات</a>
+        <a href="#showcase">نمونه سایت‌ها</a>
+        <a href="#about">درباره ما</a>
+        <a href="https://t.me/studio_grapix" target="_blank" rel="noopener">تلگرام</a>
+      </div>
+      <p class="footer-copy">© <span id="year"></span> Studio.Grapix — تمامی حقوق محفوظ است</p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal glass" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="بستن">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="modal-header">
+      <span class="service-icon" id="modalIcon"></span>
+      <div>
+        <h3 id="modalTitle"></h3>
+        <p id="modalBlurb"></p>
+      </div>
+    </div>
+    <ul class="modal-list" id="modalList"></ul>
+    <p class="modal-mood-title">سبک و حس‌وحال خروجی</p>
+    <div class="mood-grid" id="modalMood"></div>
+    <div class="modal-footer">
+      <a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="btn btn-primary" id="modalCta">درخواست این سرویس</a>
+      <button class="btn btn-ghost" id="modalCloseBtn">بستن</button>
+    </div>
+  </div>
+</div>
+
+<a href="https://t.me/studio_grapix" target="_blank" rel="noopener" class="float-tg" aria-label="ارتباط در تلگرام">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4L3 11l6 2.4M21 4l-3.5 16-7.5-6.6M21 4l-11 9.8"/></svg>
+</a>
+
+<script>
+/* ============ ICONS ============ */
+const ICON = {
+  layers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>',
+  channel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V11M10 19V5M16 19v-7M22 19H2"/></svg>',
+  design:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.59 7.59"/><circle cx="11" cy="11" r="2"/></svg>',
+  edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>',
+  music:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  support:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0118 0v6"/><path d="M21 19a2 2 0 01-2 2h-1v-7h3z"/><path d="M3 19a2 2 0 002 2h1v-7H3z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 13l4 4L19 7"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 17l-5-5 5-5M5 12h14"/></svg>'
+};
+
+/* ============ SERVICE DATA ============ */
+const SERVICES = [
+  {
+    icon:'layers', badge:true,
+    title:'پکیج طلایی پروژه‌های لایه‌باز',
+    blurb:'کتابخانه‌ای کامل از پروژه‌های آماده، برای ساخت سریع‌تر و حرفه‌ای‌تر.',
+    bullets:[
+      'پروژه‌های آماده و لایه‌باز افترافکت، الایت‌موشن و فتوشاپ',
+      'مناسب ادیتورها، موشن‌کارها و طراح‌ها',
+      'همراه با دوره‌های آموزشی قدم‌به‌قدم و رایگان'
+    ],
+    mood:['مدرن','حرفه‌ای','کاربردی']
+  },
+  {
+    icon:'channel',
+    title:'راه‌اندازی کانال از صفر تا صد',
+    blurb:'کانالت رو از صفر می‌سازیم و تا رشد واقعی همراهت می‌مونیم.',
+    bullets:[
+      'آماده‌سازی پروفایل، بیو، بنر و محتوا',
+      'رشد تا ۱۰۰۰ عضو فعال، کاملاً منظم',
+      'تحویل نهایی کانال پس از تکمیل رشد'
+    ],
+    mood:['منظم','قابل‌اعتماد','رو به رشد']
+  },
+  {
+    icon:'design',
+    title:'طراحی و تولید محتوای گرافیکی',
+    blurb:'از بنر تبلیغاتی تا ریلز و کاور، آماده برای انتشار.',
+    bullets:[
+      'بنر تبلیغاتی، کاور، ریلز، پروفایل و...',
+      'ادیت ویدیوی ورزشی، سینمایی و...',
+      'تحویل با کیفیت بالا، آماده‌ی انتشار'
+    ],
+    mood:['خلاقانه','پرانرژی','شیک']
+  },
+  {
+    icon:'edit',
+    title:'پکیج کامل ابزارهای ادیت',
+    blurb:'هرچی برای یه ادیت حرفه‌ای لازم داری، توی یه پکیج.',
+    bullets:[
+      'پکیج ویدیوی خام ورزشی و سینمایی تا کیفیت ۴K',
+      'ترنزیشن، بک‌گراند و ابزارهای ترند',
+      'هر ابزاری که برای ادیت لازم داری'
+    ],
+    mood:['سینمایی','ترند','پرکیفیت']
+  },
+  {
+    icon:'music',
+    title:'پکیج کامل ابزارهای ریمیکس آهنگ',
+    blurb:'وکال، ریتم و سمپل آماده، بدون افت کیفیت.',
+    bullets:[
+      'وکال، ریتم و بیت آماده، بدون افت کیفیت',
+      'جداسازی وکال و ریتم بدون افت کیفیت',
+      'سمپل و ابزار ریمیکس، همه آماده'
+    ],
+    mood:['ریتمیک','تمیز','استودیویی']
+  },
+  {
+    icon:'support',
+    title:'پشتیبانی و تسهیل‌گری',
+    blurb:'از دانلود و آپلود تا واسطه‌گری امن، کنارتیم.',
+    bullets:[
+      'دانلود و آپلود ویدیو در پلتفرم‌های ایرانی',
+      'واسطه‌ی معاملات امن و مطمئن',
+      'تبلیغات با هزینه‌ی منطقی در کانال‌های ما'
+    ],
+    mood:['امن','سریع','مقرون‌به‌صرفه']
+  }
+];
+
+const MOOD_COLORS = [
+  'linear-gradient(135deg, rgba(201,138,94,.55), rgba(201,138,94,.15))',
+  'linear-gradient(135deg, rgba(227,229,236,.35), rgba(227,229,236,.08))',
+  'linear-gradient(135deg, rgba(156,95,60,.5), rgba(156,95,60,.12))'
+];
+
+/* ============ RENDER SERVICE CARDS ============ */
+const grid = document.getElementById('servicesGrid');
+SERVICES.forEach((s, i) => {
+  const card = document.createElement('div');
+  card.className = 'service-card glass';
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-haspopup', 'dialog');
+  card.dataset.reveal = '';
+  card.innerHTML = `
+    ${s.badge ? '<span class="service-badge">طلایی</span>' : ''}
+    <span class="service-icon">${ICON[s.icon]}</span>
+    <h3>${s.title}</h3>
+    <p>${s.blurb}</p>
+    <span class="service-more">مشاهده جزئیات ${ICON.arrow}</span>
+  `;
+  card.addEventListener('click', () => openModal(i));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+  });
+  grid.appendChild(card);
+});
+
+/* ============ MODAL LOGIC ============ */
+const overlay = document.getElementById('modalOverlay');
+let lastFocused = null;
+
+function openModal(i){
+  const s = SERVICES[i];
+  document.getElementById('modalIcon').innerHTML = ICON[s.icon];
+  document.getElementById('modalTitle').textContent = s.title;
+  document.getElementById('modalBlurb').textContent = s.blurb;
+  document.getElementById('modalList').innerHTML = s.bullets.map(b => `<li>${ICON.check}<span>${b}</span></li>`).join('');
+  document.getElementById('modalMood').innerHTML = s.mood.map((m,idx) => `<div class="mood-swatch" style="background:${MOOD_COLORS[idx % 3]}"><span>${m}</span></div>`).join('');
+
+  lastFocused = document.activeElement;
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalClose').focus();
+}
+
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocused) lastFocused.focus();
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+
+/* ============ NAV SCROLL STATE ============ */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 30);
+}, { passive:true });
+
+/* ============ MOBILE MENU ============ */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open);
+});
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+  mobileMenu.classList.remove('open');
+  navToggle.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', false);
+}));
+
+/* ============ ACTIVE NAV LINK ON SCROLL ============ */
+const sections = ['top','services','showcase','about'].map(id => document.getElementById(id));
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      const id = entry.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(s => s && navObserver.observe(s));
+
+/* ============ SCROLL REVEAL ============ */
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting){
+      entry.target.classList.add('is-visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold:.15 });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+/* ============ FOOTER YEAR ============ */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
